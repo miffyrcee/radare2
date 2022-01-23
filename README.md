@@ -70,7 +70,7 @@ $ r2 /bin/ls   # open the binary in read-only mode
 ## Plugins
 
 Many plugins are included with r2 by default. You can find more plugins using
-the [r2pm](https://github.com/radareorg/radare2-pm) package manager.
+the [r2pm](https://github.com/miffyrcee/radare2-pm) package manager.
 
 ```sh
 r2pm -ci <pkg> # install a package

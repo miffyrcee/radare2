@@ -143,6 +143,7 @@ Commands:
  -ci (pkgname)               clean install of given package
  -cp                         clean the user's home plugin directory
  -d,doc [pkgname]            show documentation for given package
+ -di [pkgname]               debug install of given package
  init | update ..            initialize/update database
  cd [git/dir]                cd into given git (see 'r2pm ls')
  ls                          ls all cloned git repos in GITDIR
@@ -236,8 +237,8 @@ r2pm_update() {
 		git reset --hard @^^
 		git pull
 	else
-		echo git clone https://github.com/radareorg/radare2-pm
-		git clone -q --depth=3 --recursive https://github.com/radareorg/radare2-pm
+		echo git clone https://github.com/miffyrcee/radare2-pm
+		git clone -q --depth=3 --recursive https://github.com/miffyrcee/radare2-pm
 		cd radare2-pm
 		pwd
 	fi
@@ -540,7 +541,10 @@ r2pm_doc() {
 }
 
 r2pm_install() {
-	r2pm_update
+	params="$@"
+	if [[ ! "${params[@]}" =~ "-di" ]]; then
+		r2pm_update
+	fi
 	FILE="$(pkgFilePath "$2")"
 	if [ -f "${FILE}" ]; then
 		NAME="$2"
@@ -581,6 +585,9 @@ r2pm_uninstall() {
 export PYTHON_PATH="${R2PM_PYPATH}:${PYTHON_PATH}"
 
 case "$1" in
+-di)
+	r2pm_install "$@"
+	;;
 -I|info)
 	R2PM_Info
 	;;
